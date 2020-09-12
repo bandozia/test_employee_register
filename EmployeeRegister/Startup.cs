@@ -9,6 +9,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using EmployeeRegister.DAL;
+using EmployeeRegister.DAL.Repositories;
 
 namespace EmployeeRegister
 {
@@ -25,7 +28,9 @@ namespace EmployeeRegister
         {
             services.AddControllers();
             services.AddSpaStaticFiles(conf => conf.RootPath = "webapp");
-            
+
+            services.AddDbContext<CoreContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("Default")));
+            services.AddTransient<EmployeeRepository>();
         }
                 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

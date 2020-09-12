@@ -9,7 +9,20 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <Compile Remove="Migrations\20200912222254_initial.cs" />
+	  <Compile Remove="Migrations\20200912222254_initial.Designer.cs" />
+	  <Compile Remove="Migrations\20200912222413_initial.cs" />
+	  <Compile Remove="Migrations\20200912222413_initial.Designer.cs" />
+	</ItemGroup>
+
+	<ItemGroup>
 	  <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.8" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.8" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.8" />
+	  <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.8">
+	    <PrivateAssets>all</PrivateAssets>
+	    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+	  </PackageReference>
 	</ItemGroup>
 	
 	<Target Name="CopyWebApp" BeforeTargets="Build" Condition="'$(Configuration)' == 'Release'">
