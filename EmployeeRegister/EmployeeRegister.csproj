@@ -5,14 +5,19 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<_CopyItems Include="..\WebApp\dist\**" />
+		<_CopyItems Include="..\WebApp\dist\WebApp\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.8" />
 	</ItemGroup>
 	
-	<Target Name="CopyLinkedContentFiles" BeforeTargets="Build" Condition="'$(Configuration)' == 'Release'">
-		<Copy SourceFiles="@(_CopyItems)"
-            DestinationFolder="$(OutputPath)\dist"
-            SkipUnchangedFiles="true"
-            OverwriteReadOnlyFiles="true" />
+	<Target Name="CopyWebApp" BeforeTargets="Build" Condition="'$(Configuration)' == 'Release'">
+		<Copy SourceFiles="@(_CopyItems)" DestinationFolder="$(OutputPath)\webapp" SkipUnchangedFiles="true" OverwriteReadOnlyFiles="true" />
+	</Target>
+
+	<Target Name="CopyWebAppOnPublish" AfterTargets="Publish" Condition="'$(Configuration)' == 'Release'">
+		<Copy SourceFiles="@(_CopyItems)" DestinationFolder="$(PublishDir)\webapp" SkipUnchangedFiles="true" OverwriteReadOnlyFiles="true" />
 	</Target>
 
 </Project>
