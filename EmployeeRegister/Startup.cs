@@ -30,6 +30,9 @@ namespace EmployeeRegister
             services.AddSpaStaticFiles(conf => conf.RootPath = "webapp");
 
             services.AddDbContext<CoreContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("Default")));
+
+            services.AddTransient<SexRepository>();
+            services.AddTransient<SkillRepository>();
             services.AddTransient<EmployeeRepository>();
         }
                 

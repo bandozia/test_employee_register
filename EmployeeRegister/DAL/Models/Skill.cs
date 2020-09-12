@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace EmployeeRegister.DAL.Models
@@ -15,6 +16,7 @@ namespace EmployeeRegister.DAL.Models
             Name = name;
         }
 
+        [JsonIgnore]
         public ICollection<EmployeeSkill> Employees { get; set; }
     }
 
