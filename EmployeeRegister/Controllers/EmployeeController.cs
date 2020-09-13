@@ -1,5 +1,6 @@
 ﻿using EmployeeRegister.DAL.Models;
 using EmployeeRegister.DAL.Repositories;
+using EmployeeRegister.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,36 +12,47 @@ namespace EmployeeRegister.Controllers
     [Route("api/employee")]
     public class EmployeeController : Controller
     {
-        private readonly SkillRepository skillRepository;
-        private readonly GenderRepository genderRepository;
-        private readonly EmployeeRepository employeeRepository;
+        private readonly EmployeeService employeeService;
 
-        public EmployeeController(SkillRepository skillRepository, GenderRepository sexRepository, 
-            EmployeeRepository employeeRepository)
+        public EmployeeController(EmployeeService employeeService)
         {
-            this.skillRepository = skillRepository;
-            this.genderRepository = sexRepository;
-            this.employeeRepository = employeeRepository;
+            this.employeeService = employeeService;
+        }
+
+        [HttpGet]
+        public async Task<ICollection<Employee>> GetEmployees()
+        {
+            return await employeeService.GetEmployees();
         }
 
         [HttpPost]
         public async Task<IActionResult> InsertEmployee([FromBody] Employee employee)
         {
-            Employee newEmployee = await employeeRepository.Insert(employee);
-            return Created($"/api/employee/{newEmployee.Id}", newEmployee);
+            if (ModelState.IsValid)
+            {
+                if (employee.Skills.Count < 1)
+                    return BadRequest("validation");
+
+                Employee newEmployee = await employeeService.CreateEmployee(employee);
+                return Created($"/api/employee/{newEmployee.Id}", newEmployee);
+            }
+            else
+            {
+                return BadRequest("validation");
+            }
         }
 
         [HttpGet("skill-list")]
         public async Task<ICollection<Skill>> GetSkillList()
         {
-            return await skillRepository.GetAll();
+            return await employeeService.GetSkillList();
         }
 
         [HttpGet("gender-list")]
         public async Task<ICollection<Gender>> GetGenderList()
         {
-            return await genderRepository.GetAll();
-        }                
+            return await employeeService.GetGenders();
+        }
 
     }
 }

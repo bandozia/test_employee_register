@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Skill } from './model/skill.model';
 import { Gender } from './model/gender.model';
+import { Employee } from './model/employee.model';
 
 const BASE_API_URL = '/api/employee';
 
@@ -14,6 +15,10 @@ export class EmployeeService {
 
 	constructor(private http: HttpClient) { }
 
+	public getEmployeees(): Observable<Employee[]> {
+		return this.http.get<Employee[]>(`${BASE_API_URL}`);
+	}
+
 	public getSkillList(): Observable<Skill[]> {
 		return this.http.get<Skill[]>(`${BASE_API_URL}/skill-list`);
 	}
@@ -21,5 +26,9 @@ export class EmployeeService {
 	public getGenderList(): Observable<Gender[]> {
 		return this.http.get<Gender[]>(`${BASE_API_URL}/gender-list`);
 	} 
+
+	public createEmployee(employee: Employee) {
+		return this.http.post(`${BASE_API_URL}`, employee);
+	}
 
 }

@@ -23,11 +23,21 @@ namespace EmployeeRegister.DAL.Repositories
             return await DbSet.ToListAsync();
         }
 
+        public virtual async Task<T> GetById(int id)
+        {
+            return await DbSet.SingleOrDefaultAsync(i => i.Id == id);
+        }
+
+        public virtual async Task<ICollection<T>> GetByIds(int[] ids)
+        {
+            return await DbSet.Where(i => ids.Contains(i.Id)).ToListAsync();
+        }
+
         public virtual async Task<T> Insert(T item)
         {
             DbSet.Add(item);
             await Context.SaveChangesAsync();
             return item;
-        }
+        }                
     }
 }

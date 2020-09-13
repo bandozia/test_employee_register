@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -22,10 +23,11 @@ namespace EmployeeRegister.DAL.Models
         public Gender Gender { get; set; }
 
         public string Email { get; set; }              
-                
-        public ICollection<EmployeeSkill> EmployeeSkills { get; set; }
+        
+        [JsonIgnore]
+        public virtual ICollection<EmployeeSkill> EmployeeSkills { get; set; }
 
-        [NotMapped]
+        [NotMapped]        
         public ICollection<Skill> Skills { get; set; }
     }
 }

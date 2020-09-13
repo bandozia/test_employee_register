@@ -12,6 +12,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using EmployeeRegister.DAL;
 using EmployeeRegister.DAL.Repositories;
+using EmployeeRegister.Services;
+using Newtonsoft.Json;
 
 namespace EmployeeRegister
 {
@@ -26,14 +28,16 @@ namespace EmployeeRegister
                 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(opts => opts.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore);
             services.AddSpaStaticFiles(conf => conf.RootPath = "webapp");
-
+            
             services.AddDbContext<CoreContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("Default")));
 
             services.AddTransient<GenderRepository>();
             services.AddTransient<SkillRepository>();
             services.AddTransient<EmployeeRepository>();
+
+            services.AddTransient<EmployeeService>();
         }
                 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

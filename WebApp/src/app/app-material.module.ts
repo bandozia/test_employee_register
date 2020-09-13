@@ -8,6 +8,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatListModule } from '@angular/material/list';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { MatRadioModule } from '@angular/material/radio';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 @NgModule({
     imports: [
@@ -18,7 +20,9 @@ import { MatNativeDateModule } from '@angular/material/core';
         MatSelectModule,
         MatListModule,
         MatDatepickerModule,
-        MatNativeDateModule
+        MatNativeDateModule,
+        MatRadioModule,
+        MatCheckboxModule
     ],
     exports: [
         MatFormFieldModule,
@@ -27,8 +31,9 @@ import { MatNativeDateModule } from '@angular/material/core';
         MatProgressSpinnerModule,
         MatSelectModule,
         MatListModule,
-        MatDatepickerModule,
-        MatNativeDateModule
+        MatDatepickerModule,        
+        MatRadioModule,
+        MatCheckboxModule
     ]
 })
 export class AppMaterialModule { }

@@ -25,6 +25,10 @@ namespace EmployeeRegister.DAL.Models
             Sign = sign;
             Description = description;
         }
+
+        public Gender()
+        {
+        }
                 
     }
 }

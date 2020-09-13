@@ -6,9 +6,10 @@ import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RegisterEmployeeComponent } from './register-employee/register-employee.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ListEmployeesComponent } from './list-employees/list-employees.component';
 
 @NgModule({
-  declarations: [RegisterEmployeeComponent],
+  declarations: [RegisterEmployeeComponent, ListEmployeesComponent],
   imports: [
     CommonModule,    
     HttpClientModule,

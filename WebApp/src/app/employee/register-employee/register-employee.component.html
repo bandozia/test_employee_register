@@ -1,8 +1,56 @@
 <h1>Registrar Funcionário</h1>
 
-<mat-form-field fxFlex>
-    <mat-label>Data de nascimento</mat-label>
-    <input matInput [matDatepicker]="picker">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-</mat-form-field>
+<form [formGroup]="formGroup" (submit)="register()">
+    <div fxLayout="row" fxLayoutGap="20px">
+        <mat-form-field class="full-width">
+            <mat-label>Nome*</mat-label>
+            <input formControlName="firstName" matInput>
+            <mat-error>campo obrigatório</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="full-width">
+            <mat-label>Sobrenome*</mat-label>
+            <input formControlName="lastName" matInput>
+            <mat-error>campo obrigatório</mat-error>
+        </mat-form-field>
+    </div>
+    <br />
+    <div>
+        <label>Sexo*</label><br />
+        <mat-radio-group (change)="selectedGender=$event.value">
+            <mat-radio-button *ngFor="let gender of genders" [value]="gender">
+                {{gender.description}}
+            </mat-radio-button>           
+        </mat-radio-group>
+        <mat-error *ngIf="genderInvalid">campo obrigatório</mat-error>        
+    </div>
+    <br />
+    <div>
+        <mat-form-field fxFlex>
+            <mat-label>Data de nascimento*</mat-label>
+            <input formControlName="birthDate" matInput [matDatepicker]="picker" (click)="picker.open()">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="formGroup.get('birthDate').errors?.required">campo obrigatório</mat-error>
+            <mat-error *ngIf="formGroup.get('birthDate').errors?.legalage">é necessário ser maior de 18 anos</mat-error>
+        </mat-form-field>
+    </div>
+    <br />
+    <mat-form-field class="full-width">
+        <mat-label>E-mail</mat-label>
+        <input formControlName="email" matInput>
+        <mat-error>e-mail inválido</mat-error>
+    </mat-form-field>
+    <br />
+    
+    <div>
+        <label>Habilidades</label><br />
+        <section>
+            <mat-checkbox class="skill-cb" *ngFor="let skill of skills" (change)="skill.selected = $event.checked" >{{skill.name}}</mat-checkbox>            
+        </section>
+        <mat-error *ngIf="skillsInvalid">é necessário possuir ao menos uma destas habilidades.</mat-error>
+    </div>
+    <br />
+    <button mat-raised-button color="primary" type="submit">REGISTRAR</button>
+
+</form>
