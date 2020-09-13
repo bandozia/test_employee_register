@@ -1,23 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace EmployeeRegister.DAL.Models
 {
-    public enum SexSign
+    public enum GenderSign
     {
         F,
         M,
         ND
     }
 
-    public class Sex : BaseModel
+    public class Gender : BaseModel
     {
-        public SexSign Sign { get; private set; }
+        [Column(TypeName = "nvarchar(4)")]
+        public GenderSign Sign { get; private set; }
+
         public string Description { get; private set; }
 
-        public Sex(SexSign sign, string description)
+        public Gender(GenderSign sign, string description)
         {
             Sign = sign;
             Description = description;

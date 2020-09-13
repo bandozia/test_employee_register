@@ -15,14 +15,13 @@ namespace EmployeeRegister.DAL
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<Sex>(sex =>
+            modelBuilder.Entity<Gender>(sex =>
             {
                 sex.HasKey(s => s.Id);
-                sex.Property(s => s.Sign).HasConversion(new EnumToStringConverter<SexSign>());
-
-                sex.HasData(new Sex(SexSign.F, "Feminino") { Id = 1 });
-                sex.HasData(new Sex(SexSign.M, "Masculino") { Id = 2 });
-                sex.HasData(new Sex(SexSign.ND, "Prefio não responder") { Id = 3 });
+                
+                sex.HasData(new Gender(GenderSign.F, "Feminino") { Id = 1 });
+                sex.HasData(new Gender(GenderSign.M, "Masculino") { Id = 2 });
+                sex.HasData(new Gender(GenderSign.ND, "Prefio não responder") { Id = 3 });
             });
 
             modelBuilder.Entity<Skill>(skill =>
@@ -41,13 +40,13 @@ namespace EmployeeRegister.DAL
             modelBuilder.Entity<Employee>(employee =>
             {
                 employee.HasKey(e => e.Id);
-                employee.HasOne(e => e.Sex);
+                employee.HasOne(e => e.Gender);
             });
 
             modelBuilder.Entity<EmployeeSkill>(employeeSkill =>
             {
                 employeeSkill.HasKey(es => new { es.EmployeeId, es.SkillId });
-                employeeSkill.HasOne(es => es.Employee).WithMany(e => e.Skils).HasForeignKey(es => es.EmployeeId);
+                employeeSkill.HasOne(es => es.Employee).WithMany(e => e.EmployeeSkills).HasForeignKey(es => es.EmployeeId);
                 employeeSkill.HasOne(es => es.Skill).WithMany(s => s.Employees).HasForeignKey(es => es.SkillId);
             });
                         

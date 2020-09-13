@@ -8,17 +8,17 @@ namespace EmployeeRegister.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Sex",
+                name: "Gender",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Sign = table.Column<string>(nullable: false),
+                    Sign = table.Column<string>(type: "nvarchar(4)", nullable: false),
                     Description = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Sex", x => x.Id);
+                    table.PrimaryKey("PK_Gender", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -43,16 +43,16 @@ namespace EmployeeRegister.Migrations
                     FirstName = table.Column<string>(nullable: false),
                     LastName = table.Column<string>(nullable: false),
                     BirthDate = table.Column<DateTime>(nullable: false),
-                    SexId = table.Column<int>(nullable: false),
+                    GenderId = table.Column<int>(nullable: false),
                     Email = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Employee", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Employee_Sex_SexId",
-                        column: x => x.SexId,
-                        principalTable: "Sex",
+                        name: "FK_Employee_Gender_GenderId",
+                        column: x => x.GenderId,
+                        principalTable: "Gender",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -82,7 +82,7 @@ namespace EmployeeRegister.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Sex",
+                table: "Gender",
                 columns: new[] { "Id", "Description", "Sign" },
                 values: new object[,]
                 {
@@ -104,9 +104,9 @@ namespace EmployeeRegister.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Employee_SexId",
+                name: "IX_Employee_GenderId",
                 table: "Employee",
-                column: "SexId");
+                column: "GenderId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_EmployeeSkill_SkillId",
@@ -126,7 +126,7 @@ namespace EmployeeRegister.Migrations
                 name: "Skill");
 
             migrationBuilder.DropTable(
-                name: "Sex");
+                name: "Gender");
         }
     }
 }

@@ -1,0 +1,8 @@
+<h1>Registrar Funcionário</h1>
+
+<mat-form-field fxFlex>
+    <mat-label>Data de nascimento</mat-label>
+    <input matInput [matDatepicker]="picker">
+    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>

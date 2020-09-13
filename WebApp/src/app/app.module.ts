@@ -3,6 +3,11 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
+import { EmployeeModule } from './employee/employee.module'
 
 @NgModule({
   declarations: [
@@ -10,9 +15,14 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    FlexLayoutModule,
+    EmployeeModule
   ],
-  providers: [],
+  providers: [
+    {provide: MAT_DATE_LOCALE, useValue: 'pt-BR'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

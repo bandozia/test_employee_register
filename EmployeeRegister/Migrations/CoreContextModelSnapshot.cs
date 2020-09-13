@@ -36,16 +36,16 @@ namespace EmployeeRegister.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("GenderId")
+                        .HasColumnType("int");
+
                     b.Property<string>("LastName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("SexId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("SexId");
+                    b.HasIndex("GenderId");
 
                     b.ToTable("Employee");
                 });
@@ -65,7 +65,7 @@ namespace EmployeeRegister.Migrations
                     b.ToTable("EmployeeSkill");
                 });
 
-            modelBuilder.Entity("EmployeeRegister.DAL.Models.Sex", b =>
+            modelBuilder.Entity("EmployeeRegister.DAL.Models.Gender", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -77,11 +77,11 @@ namespace EmployeeRegister.Migrations
 
                     b.Property<string>("Sign")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(4)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Sex");
+                    b.ToTable("Gender");
 
                     b.HasData(
                         new
@@ -148,9 +148,9 @@ namespace EmployeeRegister.Migrations
 
             modelBuilder.Entity("EmployeeRegister.DAL.Models.Employee", b =>
                 {
-                    b.HasOne("EmployeeRegister.DAL.Models.Sex", "Sex")
+                    b.HasOne("EmployeeRegister.DAL.Models.Gender", "Gender")
                         .WithMany()
-                        .HasForeignKey("SexId")
+                        .HasForeignKey("GenderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -158,7 +158,7 @@ namespace EmployeeRegister.Migrations
             modelBuilder.Entity("EmployeeRegister.DAL.Models.EmployeeSkill", b =>
                 {
                     b.HasOne("EmployeeRegister.DAL.Models.Employee", "Employee")
-                        .WithMany("Skils")
+                        .WithMany("EmployeeSkills")
                         .HasForeignKey("EmployeeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

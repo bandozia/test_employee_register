@@ -12,14 +12,14 @@ namespace EmployeeRegister.Controllers
     public class EmployeeController : Controller
     {
         private readonly SkillRepository skillRepository;
-        private readonly SexRepository sexRepository;
+        private readonly GenderRepository genderRepository;
         private readonly EmployeeRepository employeeRepository;
 
-        public EmployeeController(SkillRepository skillRepository, SexRepository sexRepository, 
+        public EmployeeController(SkillRepository skillRepository, GenderRepository sexRepository, 
             EmployeeRepository employeeRepository)
         {
             this.skillRepository = skillRepository;
-            this.sexRepository = sexRepository;
+            this.genderRepository = sexRepository;
             this.employeeRepository = employeeRepository;
         }
 
@@ -36,10 +36,10 @@ namespace EmployeeRegister.Controllers
             return await skillRepository.GetAll();
         }
 
-        [HttpGet("sex-list")]
-        public async Task<ICollection<Sex>> GetSexList()
+        [HttpGet("gender-list")]
+        public async Task<ICollection<Gender>> GetGenderList()
         {
-            return await sexRepository.GetAll();
+            return await genderRepository.GetAll();
         }                
 
     }

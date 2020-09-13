@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace EmployeeRegister.DAL.Repositories
 {
-    public class SexRepository : BaseRepository<Sex>
+    public class GenderRepository : BaseRepository<Gender>
     {
-        public SexRepository(CoreContext context) : base(context)
+        public GenderRepository(CoreContext context) : base(context)
         {
         }
     }

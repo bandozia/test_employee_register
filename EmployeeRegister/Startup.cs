@@ -31,7 +31,7 @@ namespace EmployeeRegister
 
             services.AddDbContext<CoreContext>(opts => opts.UseSqlServer(Configuration.GetConnectionString("Default")));
 
-            services.AddTransient<SexRepository>();
+            services.AddTransient<GenderRepository>();
             services.AddTransient<SkillRepository>();
             services.AddTransient<EmployeeRepository>();
         }
