@@ -26,5 +26,12 @@ namespace EmployeeRegister.DAL.Repositories
                 .ThenInclude(s => s.Skill)
                 .Include(e => e.Gender).SingleOrDefaultAsync(e => e.Id == id);                
         }
+
+        public async Task<Employee> UpdateEmployee(Employee employee)
+        {
+            DbSet.Update(employee);
+            await Context.SaveChangesAsync();
+            return employee;
+        }
     }
 }

@@ -35,4 +35,8 @@ export class EmployeeService {
 		return this.http.post(`${BASE_API_URL}`, employee);
 	}
 
+	public updateEmployeee(employee: Employee) {
+		return this.http.put(`${BASE_API_URL}`, employee);
+	}
+
 }

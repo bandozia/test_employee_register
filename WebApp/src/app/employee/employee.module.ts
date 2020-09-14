@@ -9,12 +9,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ListEmployeesComponent } from './list-employees/list-employees.component';
 import { UtilModule } from '../util/util.module';
 import { FilterByPipe } from './list-employees/filter-by.pipe';
+import { AppRoutingModule } from '../app-routing.module';
 
 @NgModule({
   declarations: [RegisterEmployeeComponent, ListEmployeesComponent, FilterByPipe],
   imports: [
     CommonModule,    
     HttpClientModule,
+    AppRoutingModule,
     ReactiveFormsModule,
     AppMaterialModule,
     FlexLayoutModule,    

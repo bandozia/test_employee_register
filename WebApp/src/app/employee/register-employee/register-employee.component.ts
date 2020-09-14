@@ -65,12 +65,26 @@ export class RegisterEmployeeComponent implements OnInit {
 			newEmployee.gender = this.selectedGender;
 			
 			this.isWorking = true;
-			this.employeeService.createEmployee(newEmployee).subscribe(res => {
-				this.router.navigate(['']);
-			}, err => {
-				alert("erro ao cadastrar")
-				this.isWorking = false;
-			})
+
+			if (this.employee)
+			{
+				newEmployee.id = this.employee.id;				
+				this.employeeService.updateEmployeee(newEmployee).subscribe(res => {
+					this.router.navigate(['']);
+				}, err => {
+					alert("erro ao atualizar")
+					this.isWorking = false;
+				});
+
+			} else {
+				this.employeeService.createEmployee(newEmployee).subscribe(res => {
+					this.router.navigate(['']);
+				}, err => {
+					alert("erro ao cadastrar")
+					this.isWorking = false;
+				});
+			}
+			
 		}
 	}
 

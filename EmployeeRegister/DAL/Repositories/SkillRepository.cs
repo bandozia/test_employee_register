@@ -1,4 +1,5 @@
 ﻿using EmployeeRegister.DAL.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,14 @@ namespace EmployeeRegister.DAL.Repositories
     {
         public SkillRepository(CoreContext context) : base(context)
         {
+        }
+
+        public async Task RemoveAllSkillsOfEmployee(int employeeId)
+        {
+            var joinTable = Context.Set<EmployeeSkill>();
+            var skills = await joinTable.Where(es => es.EmployeeId == employeeId).ToListAsync();
+            joinTable.RemoveRange(skills);
+            await Context.SaveChangesAsync();
         }
     }
 }

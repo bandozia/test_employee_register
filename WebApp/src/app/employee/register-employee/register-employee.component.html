@@ -51,6 +51,13 @@
         <mat-error *ngIf="skillsInvalid">é necessário possuir ao menos uma destas habilidades.</mat-error>
     </div>
     <br />
-    <button [disabled]="isWorking" mat-raised-button color="primary" type="submit">REGISTRAR</button>
+        
+    <button [disabled]="isWorking" mat-raised-button color="primary" type="submit" *ngIf="!employee; else updateTemplate">REGISTRAR</button>
+    <ng-template #updateTemplate>
+        <div fxLayout="row" fxLayoutGap="20px">
+            <button [disabled]="isWorking" mat-raised-button color="primary" type="submit">ATUALIZAR</button>
+            <a mat-raised-button [routerLink]="['']">CANCELAR</a> 
+        </div>        
+    </ng-template>
 
 </form>

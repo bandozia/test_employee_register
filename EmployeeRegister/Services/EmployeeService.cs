@@ -58,7 +58,7 @@ namespace EmployeeRegister.Services
             if (gender != null && validSkills != null)
             {
                 employee.EmployeeSkills = validSkills
-                .Select(s => new EmployeeSkill { Employee = employee, Skill = s }).ToList();
+                    .Select(s => new EmployeeSkill { Employee = employee, Skill = s }).ToList();
 
                 employee.Gender = gender;
 
@@ -68,7 +68,19 @@ namespace EmployeeRegister.Services
             {
                 return null;
             }
+        }
+
+        public async Task<Employee> UpdateEmployee(Employee employee)
+        {
+            var validGender = await ValidateGender(employee.Gender.Id);
+            var validSkills = await ValidateSkills(employee.Skills);
+            await skillRepository.RemoveAllSkillsOfEmployee(employee.Id);
             
+            employee.Gender = validGender;
+            employee.EmployeeSkills = validSkills
+                    .Select(s => new EmployeeSkill { Employee = employee, Skill = s }).ToList();
+
+            return await employeeRepository.UpdateEmployee(employee);            
         }
 
         private async Task<Gender> ValidateGender(int genderId)

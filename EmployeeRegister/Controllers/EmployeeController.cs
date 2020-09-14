@@ -32,8 +32,7 @@ namespace EmployeeRegister.Controllers
             if (employee != null)
                 return Ok(employee);
             else
-                return NotFound();                
-
+                return NotFound();
         }
 
         [HttpPost]
@@ -51,6 +50,13 @@ namespace EmployeeRegister.Controllers
             {
                 return BadRequest("validation");
             }
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> UpdateEmployee([FromBody] Employee employee)
+        {            
+            Employee updated = await employeeService.UpdateEmployee(employee);
+            return Ok(updated);
         }
 
         [HttpGet("skill-list")]

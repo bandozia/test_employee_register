@@ -9,8 +9,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatRadioModule } from '@angular/material/radio';
-import {MatCheckboxModule} from '@angular/material/checkbox';
-import {MatChipsModule} from '@angular/material/chips';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatIconModule } from '@angular/material/icon';
 
 @NgModule({
     imports: [
@@ -24,7 +25,8 @@ import {MatChipsModule} from '@angular/material/chips';
         MatNativeDateModule,
         MatRadioModule,
         MatCheckboxModule,
-        MatChipsModule
+        MatChipsModule,
+        MatIconModule
     ],
     exports: [
         MatFormFieldModule,
@@ -33,10 +35,11 @@ import {MatChipsModule} from '@angular/material/chips';
         MatProgressSpinnerModule,
         MatSelectModule,
         MatListModule,
-        MatDatepickerModule,        
+        MatDatepickerModule,
         MatRadioModule,
         MatCheckboxModule,
-        MatChipsModule
+        MatChipsModule,
+        MatIconModule
     ]
 })
 export class AppMaterialModule { }
