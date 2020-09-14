@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { RegisterEmployeeComponent } from './employee/register-employee/register-employee.component';
 import { SkillsResolver } from './employee/skills.resolver';
 import { GenderResolver } from './employee/gender.resolver';
+import { SingleEmployeeResolver } from './employee/single-employee.resolver';
 import { ListEmployeesComponent } from './employee/list-employees/list-employees.component';
 
 const routes: Routes = [
@@ -12,6 +13,14 @@ const routes: Routes = [
     resolve: {
       skills: SkillsResolver,
       genders: GenderResolver
+    }
+  },
+  {
+    path: 'editar/:id', component: RegisterEmployeeComponent,
+    resolve: {
+      skills: SkillsResolver,
+      genders: GenderResolver,
+      employee: SingleEmployeeResolver
     }
   },
   {

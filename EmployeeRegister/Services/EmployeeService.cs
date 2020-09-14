@@ -32,6 +32,14 @@ namespace EmployeeRegister.Services
             return employees;            
         }
 
+        public async Task<Employee> GetById(int id)
+        {
+            Employee employee = await employeeRepository.GetById(id);
+            if (employee != null)
+                employee.Skills = employee.EmployeeSkills.Select(s => s.Skill).ToList();
+            return employee;
+        }
+
         public async Task<ICollection<Skill>> GetSkillList()
         {
             return await skillRepository.GetAll();

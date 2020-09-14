@@ -13,6 +13,8 @@ import { legalAgeValidator } from '../../shared/validators/date.validators';
 	styleUrls: ['./register-employee.component.css']
 })
 export class RegisterEmployeeComponent implements OnInit {
+	
+	employee: Employee;
 
 	skills: Skill[] = [];
 	genders: Gender[] = [];
@@ -22,6 +24,7 @@ export class RegisterEmployeeComponent implements OnInit {
 
 	skillsInvalid = false;
 	genderInvalid = false;
+	isWorking = false;
 		
 	constructor(
 		private activatedRoute: ActivatedRoute, 
@@ -30,14 +33,24 @@ export class RegisterEmployeeComponent implements OnInit {
 		private router: Router) { }
 
 	ngOnInit(): void {
+		
+		this.employee = this.activatedRoute.snapshot.data.employee;
+		
 		this.skills = this.activatedRoute.snapshot.data.skills;
 		this.genders = this.activatedRoute.snapshot.data.genders;
+		
+		if (this.employee) {
+			this.selectedGender = this.employee.gender;
+			this.skills.forEach(s => {				
+				s.selected = this.employee.skills.find(es => es.id == s.id) != null;
+			});			
+		}
 
 		this.formGroup = this.formBuilder.group({
-			firstName: ['', Validators.required],
-			lastName: ['', Validators.required],	
-			birthDate: [null, [Validators.required, legalAgeValidator]],
-			email: ['', Validators.email]			
+			firstName: [this.employee?.firstName, Validators.required],
+			lastName: [this.employee?.lastName, Validators.required],	
+			birthDate: [this.employee?.birthDate ? new Date(this.employee.birthDate) : null, [Validators.required, legalAgeValidator]],
+			email: [this.employee?.email, Validators.email]			
 		});
 	}
 
@@ -51,10 +64,12 @@ export class RegisterEmployeeComponent implements OnInit {
 			newEmployee.skills = employeeSkills;
 			newEmployee.gender = this.selectedGender;
 			
+			this.isWorking = true;
 			this.employeeService.createEmployee(newEmployee).subscribe(res => {
 				this.router.navigate(['']);
 			}, err => {
 				alert("erro ao cadastrar")
+				this.isWorking = false;
 			})
 		}
 	}

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, ObservedValueOf } from 'rxjs';
 
 import { Skill } from './model/skill.model';
 import { Gender } from './model/gender.model';
@@ -15,8 +15,12 @@ export class EmployeeService {
 
 	constructor(private http: HttpClient) { }
 
-	public getEmployeees(): Observable<Employee[]> {
+	public getEmployees(): Observable<Employee[]> {
 		return this.http.get<Employee[]>(`${BASE_API_URL}`);
+	}
+
+	public getEmployeeById(id: number): Observable<Employee> {
+		return this.http.get<Employee>(`${BASE_API_URL}/${id}`);
 	}
 
 	public getSkillList(): Observable<Skill[]> {

@@ -1,1 +1,61 @@
-<p>list-employees works!</p>
+<h1>Lista de funcionários</h1>
+<div *ngIf="employees$ | async |filterBy:searchName:filterAge:skillsFilter:genderFilter as employees; else loadingTemplate">
+    
+    <div fxLayout="row" fxLayoutGap="20px" fxLayoutAlign="start center">
+        <mat-form-field appearance="outline" fxFlex="40">
+            <mat-label>Filtrar por nome</mat-label>        
+            <input matInput autocomplete="off" type="text" (keyup)="debounceName.next($event.target.value)">
+        </mat-form-field>
+        <mat-form-field appearance="outline" fxFlex="10">
+            <mat-label>Filtrar por idade</mat-label>        
+            <input matInput type="number" autocomplete="off" placeholder="maior que:"  (keyup)="debounceAge.next($event.target.value)" (change)="debounceAge.next($event.target.value)">            
+        </mat-form-field>
+        <mat-radio-group (change)="genderFilter=$event.value">
+            <mat-radio-button [value]="null" selected="true">indiferente</mat-radio-button>
+            <mat-radio-button *ngFor="let gender of genders" [value]="gender">
+                {{gender.description}}
+            </mat-radio-button>           
+        </mat-radio-group>        
+    </div> 
+    <div>
+        <label>Habilidades (inclusivo)</label><br />
+        <section>
+            <mat-checkbox class="skill-cb" *ngFor="let skill of skills"  (change)="skill.selected = $event.checked; filterSkills()">{{skill.name}}</mat-checkbox>            
+        </section>
+    </div>   
+    <hr />
+    <table>
+        <thead>
+            <tr>
+                <td>Nome</td>
+                <td>Data de Nascimento</td>
+                <td>Idade</td>
+                <td>E-mail</td>
+                <td>Sexo</td>
+                <td>Habilidades</td>
+                <td>Ativar?</td>
+            </tr>            
+        </thead>
+        <tbody>
+            <tr *ngFor="let employee of employees">
+                <td>{{employee.firstName}} {{employee.lastName}}</td>
+                <td>{{employee.birthDate | date: 'dd/MM/yyyy'}}</td>
+                <td>{{employee.birthDate | toAge}}</td>
+                <td>{{employee.email}}</td>
+                <td>{{employee.gender.description}}</td>
+                <td>
+                    <mat-chip-list>                        
+                        <mat-chip color="primary" selected *ngFor="let skill of employee.skills">{{skill.name}}</mat-chip>                        
+                      </mat-chip-list>
+                </td>
+                <td>ativar o que?</td>
+            </tr>
+        </tbody>
+    </table>
+    
+</div>
+<ng-template #loadingTemplate>
+    <div fxLayout="row" fxLayoutAlign="center center">
+        <mat-spinner diameter="50" style="margin-top: 100px;"></mat-spinner>
+    </div>  
+</ng-template>

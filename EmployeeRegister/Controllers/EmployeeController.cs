@@ -25,6 +25,17 @@ namespace EmployeeRegister.Controllers
             return await employeeService.GetEmployees();
         }
 
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetById(int id)
+        {
+            Employee employee = await employeeService.GetById(id);
+            if (employee != null)
+                return Ok(employee);
+            else
+                return NotFound();                
+
+        }
+
         [HttpPost]
         public async Task<IActionResult> InsertEmployee([FromBody] Employee employee)
         {

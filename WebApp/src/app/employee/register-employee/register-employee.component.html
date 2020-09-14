@@ -1,4 +1,4 @@
-<h1>Registrar Funcionário</h1>
+<h1>{{employee ? 'Editar' : 'Registrar'}} Funcionário</h1>
 
 <form [formGroup]="formGroup" (submit)="register()">
     <div fxLayout="row" fxLayoutGap="20px">
@@ -18,7 +18,7 @@
     <div>
         <label>Sexo*</label><br />
         <mat-radio-group (change)="selectedGender=$event.value">
-            <mat-radio-button *ngFor="let gender of genders" [value]="gender">
+            <mat-radio-button *ngFor="let gender of genders" [value]="gender"[checked]="selectedGender?.id == gender.id">
                 {{gender.description}}
             </mat-radio-button>           
         </mat-radio-group>
@@ -46,11 +46,11 @@
     <div>
         <label>Habilidades</label><br />
         <section>
-            <mat-checkbox class="skill-cb" *ngFor="let skill of skills" (change)="skill.selected = $event.checked" >{{skill.name}}</mat-checkbox>            
+            <mat-checkbox class="skill-cb" *ngFor="let skill of skills" [checked]="skill.selected" (change)="skill.selected = $event.checked" >{{skill.name}}</mat-checkbox>            
         </section>
         <mat-error *ngIf="skillsInvalid">é necessário possuir ao menos uma destas habilidades.</mat-error>
     </div>
     <br />
-    <button mat-raised-button color="primary" type="submit">REGISTRAR</button>
+    <button [disabled]="isWorking" mat-raised-button color="primary" type="submit">REGISTRAR</button>
 
 </form>

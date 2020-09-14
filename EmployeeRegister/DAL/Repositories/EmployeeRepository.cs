@@ -19,6 +19,12 @@ namespace EmployeeRegister.DAL.Repositories
                 .ThenInclude(s => s.Skill)
                 .Include(e => e.Gender).ToListAsync();
         }
-        
+
+        public override async Task<Employee> GetById(int id)
+        {
+            return await DbSet.Include(e => e.EmployeeSkills)
+                .ThenInclude(s => s.Skill)
+                .Include(e => e.Gender).SingleOrDefaultAsync(e => e.Id == id);                
+        }
     }
 }
