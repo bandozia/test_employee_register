@@ -48,7 +48,7 @@ namespace EmployeeRegister.DAL
                 employeeSkill.HasKey(es => new { es.EmployeeId, es.SkillId });
                 employeeSkill.HasOne(es => es.Employee).WithMany(e => e.EmployeeSkills).HasForeignKey(es => es.EmployeeId);
                 employeeSkill.HasOne(es => es.Skill).WithMany(s => s.Employees).HasForeignKey(es => es.SkillId);
-            });
+            });         
                         
         }
     }

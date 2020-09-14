@@ -59,7 +59,7 @@ namespace EmployeeRegister
             {
                 endpoints.MapControllers();
             });
-
+                        
             app.UseSpa(spa =>
             {
                 if (env.IsDevelopment())
