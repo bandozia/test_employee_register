@@ -37,7 +37,7 @@
             </tr>            
         </thead>
         <tbody>
-            <tr *ngFor="let employee of employees">
+            <tr *ngFor="let employee of employees.slice(page * ePerPage, (page+1) * ePerPage)">
                 <td>{{employee.firstName}} {{employee.lastName}}</td>
                 <td>{{employee.birthDate | date: 'dd/MM/yyyy'}}</td>
                 <td>{{employee.birthDate | toAge}}</td>
@@ -54,6 +54,9 @@
             </tr>
         </tbody>
     </table>
+    <br />
+    
+    <app-pagination *ngIf="employees.length > ePerPage" [collength]="employees.length" [size]="ePerPage" (pageChaged)="page=$event"></app-pagination>
     
 </div>
 <ng-template #loadingTemplate>

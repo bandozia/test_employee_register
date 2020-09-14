@@ -10,9 +10,10 @@ import { ListEmployeesComponent } from './list-employees/list-employees.componen
 import { UtilModule } from '../util/util.module';
 import { FilterByPipe } from './list-employees/filter-by.pipe';
 import { AppRoutingModule } from '../app-routing.module';
+import { PaginationComponent } from './list-employees/pagination/pagination.component';
 
 @NgModule({
-  declarations: [RegisterEmployeeComponent, ListEmployeesComponent, FilterByPipe],
+  declarations: [RegisterEmployeeComponent, ListEmployeesComponent, FilterByPipe, PaginationComponent],
   imports: [
     CommonModule,    
     HttpClientModule,

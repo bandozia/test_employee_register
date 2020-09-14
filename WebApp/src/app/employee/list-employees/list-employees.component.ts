@@ -29,6 +29,9 @@ export class ListEmployeesComponent implements OnInit, OnDestroy {
 	skillsFilter: Skill[];	
 	genderFilter: Gender;
 
+	page: number = 0;
+	ePerPage = 5;
+	
 	ngOnInit(): void {
 		this.skills = this.activatedRoute.snapshot.data.skills;
 		this.genders = this.activatedRoute.snapshot.data.genders;
@@ -36,9 +39,7 @@ export class ListEmployeesComponent implements OnInit, OnDestroy {
 		this.employees$ = this.employeeService.getEmployees();
 
 		this.debounceName.pipe(debounceTime(300)).subscribe(filter => this.searchName = filter);
-		this.debounceAge.pipe(debounceTime(300)).subscribe(filter => this.filterAge = filter);
-
-		
+		this.debounceAge.pipe(debounceTime(300)).subscribe(filter => this.filterAge = filter);		
 	}
 
 	filterSkills(): void {		

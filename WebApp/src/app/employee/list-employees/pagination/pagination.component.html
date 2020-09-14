@@ -1,0 +1,5 @@
+<div fxLayout="row" fxLayoutGap="5px">
+    <button mat-stroked-button *ngFor="let p of pages" 
+        [ngClass]="{'selected': p == currentPage}"
+        (click)="changePage(p)">{{p+1}}</button>
+</div>

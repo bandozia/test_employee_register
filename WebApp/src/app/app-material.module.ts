@@ -12,6 +12,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatIconModule } from '@angular/material/icon';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 @NgModule({
     imports: [
@@ -26,7 +27,8 @@ import { MatIconModule } from '@angular/material/icon';
         MatRadioModule,
         MatCheckboxModule,
         MatChipsModule,
-        MatIconModule
+        MatIconModule,
+        MatButtonToggleModule
     ],
     exports: [
         MatFormFieldModule,
@@ -39,7 +41,8 @@ import { MatIconModule } from '@angular/material/icon';
         MatRadioModule,
         MatCheckboxModule,
         MatChipsModule,
-        MatIconModule
+        MatIconModule,
+        MatButtonToggleModule
     ]
 })
 export class AppMaterialModule { }
