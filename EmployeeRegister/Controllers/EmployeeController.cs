@@ -40,11 +40,15 @@ namespace EmployeeRegister.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (employee.Skills.Count < 1)
+                if (employee?.Skills?.Count < 1)
                     return BadRequest("validation");
 
                 Employee newEmployee = await employeeService.CreateEmployee(employee);
-                return Created($"/api/employee/{newEmployee.Id}", newEmployee);
+
+                if (newEmployee != null)
+                    return Created($"/api/employee/{newEmployee.Id}", newEmployee);
+                else
+                    return BadRequest("validation");
             }
             else
             {

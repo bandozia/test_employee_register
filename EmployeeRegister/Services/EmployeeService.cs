@@ -55,7 +55,7 @@ namespace EmployeeRegister.Services
             var validSkills = await ValidateSkills(employee.Skills);
             var gender = await ValidateGender(employee.Gender.Id);
 
-            if (gender != null && validSkills != null)
+            if (gender != null && validSkills != null && validSkills.Count > 0)
             {
                 employee.EmployeeSkills = validSkills
                     .Select(s => new EmployeeSkill { Employee = employee, Skill = s }).ToList();
